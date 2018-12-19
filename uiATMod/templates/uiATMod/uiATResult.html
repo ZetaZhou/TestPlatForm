@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block header %}
+
+    {#    <script src="/static/js/jquery.tree.js" type="text/javascript"></script>#}
+
+    <script src="/static/js/initResult.js" type="text/javascript"></script>
+    <link href="/static/css/uiResult.css" rel="stylesheet" type="text/css"/>
+
+{% endblock %}
+
+{% block mainbody %}
+
+    {% block index-title %}
+        <img style="margin-left: 80px;vertical-align: middle; padding-top: 35px;"
+             src="/static/img/source/back.png" onclick="backtoindex()">
+        <span class="index-title-context">Back</span>
+    {% endblock %}
+
+    <div class="result-table">
+        <div class="bana-box">
+            <div>Result</div>
+            <div style="float: right; text-align: right; padding-right: 40px; vertical-align: middle">
+                <img src="/static/img/source/start_false.png" id="start" onclick="run_ctrl('3')">
+                <img src="/static/img/source/pause_true.png" id="pause" onclick="run_ctrl('2')">
+                <img src="/static/img/source/download_nor.png" id="download">
+                <img src="/static/img/source/send_nor.png" id="sendmail">
+            </div>
+        </div>
+
+        <div style="overflow-y: auto; height: 85%">
+            <table class="case_result" cellspacing="0" cellpadding="0" style="border-collapse:collapse;">
+                <tr>
+                    <th style="width: 4%;">Id</th>
+                    <th style="width: 30%;">CaseName</th>
+                    <th style="width: 7%;">Module</th>
+                    <th style="width: 10%;">StatrTime</th>
+                    <th style="width: 10%;">EndTime</th>
+                    <th style="width: 8%;">Duration(s)</th>
+                    <th style="width: 6%;">Owner</th>
+                    <th style="width: 6%;">Result</th>
+                    <th>ErrMsg</th>
+                    <th style="width: 4%;"></th>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+
+    <script type="text/javascript">
+
+        var sign = 0;
+
+        function backtoindex() {
+            window.location.href = "{% url 'uiAT_index' %}";
+        }
+
+        // 循环运行
+        setInterval(function () {
+            infoloop("{% url 'info_loop' %}");
+        }, 5000);
+
+        function run_ctrl(method) {
+            if (method == '2') {
+                $('#pause').attr('src', "/static/img/source/pause_false.png");
+                $('#start').attr('src', "/static/img/source/start_true.png");
+            }
+
+            if (method == '3') {
+                $('#pause').attr('src', "/static/img/source/pause_true.png");
+                $('#start').attr('src', "/static/img/source/start_false.png");
+            }
+
+            $.get("{% url 'runloop_ctrl' %}", {method: method});
+        }
+    </script>
+
+{% endblock %}

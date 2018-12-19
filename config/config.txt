@@ -1,0 +1,9 @@
+[config]
+testcase_file=testcase.txt
+main_log=main
+detail_log=detail
+
+[mail]
+mail_user=zhouxiangyu@sinoecare.com
+mail_pass=Xiangyu924
+send_to=139989924@qq.com

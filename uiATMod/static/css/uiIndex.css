@@ -1,0 +1,153 @@
+.index-title-context {
+    margin-left: 28px;
+    padding-top: 35px;
+    display: inline-block;
+    font-family: 苹方-简;
+    font-size: 40px;
+    font-weight: normal;
+    font-stretch: normal;
+    line-height: 56px;
+    letter-spacing: 1px;
+    color: #ffffff;
+    vertical-align: middle;
+}
+
+.case-index {
+    width: 96%;
+    height: 820px;
+    background-color: #ffffff;
+    box-shadow: 0px 4px 24px 0px rgba(196, 30, 97, 0.2);
+    border-radius: 10px 10px 0px 0px;
+    position: absolute;
+    top: 140px;
+    left: 2%;
+}
+
+.case-tree {
+    float: left;
+    /*width: 260px;*/
+    width: 23%;
+    height: 80%;
+}
+
+.case-table {
+    display: inline-block;
+    margin-left: 20px;
+    width: 75%;
+    height: 80%
+}
+
+.tree-box {
+    /*border-bottom: #c3daf9 1px solid;*/
+    /*border-left: #c3daf9 1px solid;*/
+    /*border-top: #c3daf9 1px solid;*/
+    border-right: rgba(235, 75, 138, 0.2) 1px solid;
+    height: 100%;
+    overflow: auto;
+}
+
+.bana-box {
+    height: 13%;
+}
+
+.bana-box div {
+    display: inline-block;
+    width: 20%;
+    font-family: 苹方-简;
+    font-size: 32px;
+    font-weight: normal;
+    font-stretch: normal;
+    line-height: 100px;
+    letter-spacing: 0px;
+    padding-left: 2%;
+}
+
+.bana-box div img {
+    /*margin-top: 20%;*/
+    margin-left: 25px;
+}
+
+.bana-box div img:hover {
+    cursor:pointer;
+}
+
+.showcase {
+    width: 100%;
+    border-collapse: collapse;
+
+}
+
+.showcase th {
+    height: 50px;
+    text-align: center;
+}
+
+.showcase tr {
+    height: 55px;
+    border-bottom: rgba(235, 75, 138, 0.2) 1px solid;
+}
+
+.showcase tr td {
+    text-align: center;
+    font-family: 苹方-简;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    line-height: 24px;
+    letter-spacing: 1px;
+    color: #222222;
+}
+
+.showcase tr td:last-child {
+    text-align: left;
+}
+
+/*翻页样式 start*/
+
+.showSection {
+    /*font-size: 12px;*/
+    /*line-height: 50px;*/
+    text-align: right;
+    padding-top: 5px;
+    padding-right: 40px;
+
+    font-family: 苹方-简;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    line-height: 20px;
+    letter-spacing: 0px;
+    color: #eb4b8a;
+}
+
+.showSection .showBody .showMore span.input span {
+    display: inline-block;
+
+    /*border: 1px solid #999;*/
+    /*border-radius: 3px;*/
+    /*background-color: white;*/
+
+    background-color: #ffffff;
+    border-radius: 4px;
+    border: solid 1px #f6dae5;
+    padding: 0px 8px;
+    margin: 0px 2px;
+    color: #3B5998;
+    text-decoration: none;
+    height: 22px;
+    line-height: 22px;
+
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
+    /*border-radius: 99;*/
+}
+
+/*# 翻页样式 end #*/
+
+
+
+
+
