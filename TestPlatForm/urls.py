@@ -23,9 +23,9 @@ from uiATMod import urls as uiATurls
 from apiATMod import urls as apiATurls
 
 urlpatterns = [
-    # path('', include(indexurls)),
+    path('', include(indexurls)),
     path('report-ind/', include(reporturls)),
     path('apiAT-ind/', include(apiATurls)),
-    # path('uiAT-ind/', include(uiATurls)),
-    path('', include(uiATurls)),
+    path('uiAT-ind/', include(uiATurls)),
+    # path('', include(uiATurls)),
 ]

@@ -1,3 +1,7 @@
+body {
+    background-color: #f4f4f4;
+}
+
 .index-title-context {
     margin-left: 28px;
     padding-top: 35px;
@@ -68,13 +72,12 @@
 }
 
 .bana-box div img:hover {
-    cursor:pointer;
+    cursor: pointer;
 }
 
 .showcase {
     width: 100%;
     border-collapse: collapse;
-
 }
 
 .showcase th {

@@ -30,8 +30,10 @@
 {% block mainbody %}
 
     {% block index-title %}
-        <img style="margin-left: 80px;vertical-align: middle; padding-top: 35px;" src="/static/img/source/logo.png">
-        <span class="index-title-context">AutoTest Platform</span>
+        <img style="margin-left: 80px;vertical-align: middle; padding-top: 35px; cursor: pointer"
+             src="/static/img/source/logo.png"
+             onclick="gotohref()">
+        <span class="index-title-context">UI AutoTest</span>
     {% endblock %}
 
     <div class="case-index">
@@ -189,12 +191,16 @@
             setInput();
 
             clear_table(caseid_list);
-{#            console.log(indexPage);#}
+            {#            console.log(indexPage);#}
 
             $.get("{% url 'page_func' %}", {pagenum: +indexPage}, function (data, status) {
                 caselist = data.caselist;
                 set_table(caselist);
             });
+        }
+
+        function gotohref() {
+            window.location.href = "{% url 'main_index' %}";
         }
 
     </script>

@@ -121,4 +121,5 @@ TEMPLATE_DIRS = (os.path.join(BASE_DIR, 'templates'),)
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'uiATMod', "static"),
+    os.path.join(BASE_DIR, 'indexMod', "static"),
 )

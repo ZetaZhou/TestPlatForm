@@ -1,201 +1,86 @@
-{% extends "base.html" %}
-{% block header %}
+<!DOCTYPE html>
+<html>
+<head>
 
     <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
     <script src="http://www.jq22.com/jquery/jquery-migrate-1.2.1.min.js"></script>
-    <script src="/static/js/jquery.tree.js" type="text/javascript"></script>
-    {#    <script src="/static/js/tree1.js" type="text/javascript"></script>#}
 
-    <!--code highlighter file import-->
+    {#    <script src="/static/js/initTable.js" type="text/javascript"></script>#}
 
-    <script src="/static/js/shCore.js" type="text/javascript"></script>
-    <script src="/static/js/shBrushJScript.js" type="text/javascript"></script>
-    <script src="/static/js/shBrushCss.js" type="text/javascript"></script>
-    <script src="/static/js/initTree.js" type="text/javascript"></script>
-    <script src="/static/js/initTable.js" type="text/javascript"></script>
+    <link href="/static/css/index.css" rel="stylesheet" type="text/css"/>
 
-    <link href="/static/css/shCore.css" rel="stylesheet" type="text/css"/>
-    <link href="/static/css/shThemeDefault.css" rel="stylesheet" type="text/css"/>
-    <link href="/static/css/tree.css" rel="stylesheet" type="text/css"/>
-    <link href="/static/css/uiIndex.css" rel="stylesheet" type="text/css"/>
-    <script type="text/javascript">
 
-        SyntaxHighlighter.config.clipboardSwf = '../highlighter/scripts/clipboard.swf';
-        SyntaxHighlighter.all();
+</head>
 
-    </script>
+<body>
 
-    <!--end code highlighter-->
+<div class="title">
+    <div> AutoTest Platform</div>
+    <div> Application Entrance</div>
+</div>
 
-{% endblock %}
+<div class="entrance-area">
 
-{% block mainbody %}
-
-    <div class="case-index">
-        <div class="bana-box">
-            <div>Files Upload</div>
-            <div>
-                <img src="/static/img/source/submit_nor.png" id="showchecked">
-                <img src="/static/img/source/run_nor.png" id="caserun">
-            </div>
-            <div style="float: right; text-align: right; padding-right: 80px;">
-                <img src="/static/img/source/cleanlist.png" id="cleanlist">
-            </div>
-
+    <div class="entrance" onclick="gotohref({% url 'uiAT_index' %})">
+        <div class="logo">
+            <img src="/static/img/logo-ui.png"><br>
+            <p>UI AutoTest</p>
         </div>
-
-        <div class="case-tree" style="display: inline-block">
-            {#            <div style="margin-bottom:5px;">#}
-            {#                <a class="button" href="javascript:void(0);" id="showchecked">获取选定的节点</a>#}
-            {#                <a class="button" href="javascript:void(0);" id="showcurrent">获取当前节点</a>#}
-            {#            </div>#}
-            <div class="tree-box">
-                <div id="tree"></div>
-            </div>
-        </div>
-
-        <div class="case-table">
-            <form>
-                <table id="case_table" class="showcase"
-                       cellspacing="0" cellpadding="0">
-                    <tr>
-                        <th style="text-align: center;">
-                            <label for="controlAll">
-                                <img onclick="checkselectAll();" id="controlAll_img"
-                                     src="/static/img/checkbox_0.gif">
-                            </label>
-                            <input type="checkbox" style="display:none" name="controlAll"
-                                   id="controlAll" checked="checked">
-                        </th>
-                        <th style="width: 15%;"> CaseId</th>
-                        <th style="width: 20%;"> ModuleName</th>
-                        <th style="width: 20%;"> CaseName</th>
-                        <th style="width: 35%;"> Addr</th>
-                    </tr>
-
-                </table>
-            </form>
-        </div>
-
-        <div class="showSection">
-            <div class="showBody">
-                <div class="showMessage"></div>
-                <div class="showMore">
-                    <span class="totalNumber">共0条</span>
-                    <span class="totalPage">共0页</span>
-                    <span class="before input hidden">
-							<span mark="1" onclick="servlet(this)">首页</span>
-							<span mark="1" onclick="servlet(this)">上一页</span>
-						</span>
-                    <span class="content input">
-							<span mark="1" onclick="servlet(this)">1</span>
-						</span>
-                    <span class="after input">
-							<span mark="1" onclick="servlet(this)">下一页</span>
-							<span mark="1" onclick="servlet(this)">尾页</span>
-						</span>
-                </div>
-            </div>
+        <div class="logo-cross">
+            <img src="/static/img/logo-ui-cross.png"><br>
         </div>
     </div>
 
-    <script type="text/javascript">
+    <div class="entrance" onclick="gotohref()">
+        <div class="logo">
+            <img src="/static/img/logo-api.png">
+            <p>API AutoTest</p>
+        </div>
+        <div class="logo-cross">
+            <img src="/static/img/logo-api-cross.png"><br>
+        </div>
 
-        $.ajaxSetup({
-            data: {csrfmiddlewaretoken: '{{ csrf_token }}'}
-        });
+    </div>
 
-        var userAgent = window.navigator.userAgent.toLowerCase();
+    <div class="entrance" onclick="gotohref()">
+        <div class="logo">
+            <img src="/static/img/logo-report.png">
+            <p>Report AutoCreate</p>
+        </div>
+        <div class="logo-cross">
+            <img src="/static/img/logo-report-cross.png"><br>
+        </div>
 
-        $.browser.msie8 = $.browser.msie && /msie 8\.0/i.test(userAgent);
-        $.browser.msie7 = $.browser.msie && /msie 7\.0/i.test(userAgent);
-        $.browser.msie6 = !$.browser.msie8 && !$.browser.msie7 && $.browser.msie && /msie 6\.0/i.test(userAgent);
+    </div>
 
-        {# 初始化 table 元素列表 #}
-        var chkboximg_list = document.getElementsByName('selected');
-        var chkbox_list = document.getElementsByClassName('selected');
-        var caseid_list = document.getElementsByClassName("caseid");
-        var casename_list = document.getElementsByClassName("casename");
-        var modulename_list = document.getElementsByClassName("modulename");
-        var addr_list = document.getElementsByClassName("addr");
+    <div class="entrance" onclick="gotohref()">
+        <div class="logo">
+            <img src="/static/img/logo-oth.png">
+            <p>Please look forward to</p>
+        </div>
+        <div class="logo-cross">
+            <img src="/static/img/logo-oth-cross.png"><br>
+        </div>
 
-        function load() {
+    </div>
+    <div class="entrance" onclick="gotohref()">
+        <div class="logo-more">
+            <img src="/static/img/more.png">
+        </div>
 
-            var o = {
-                showcheck: true
+    </div>
+</div>
 
-                //onnodeclick:function(item){alert(item.text);},
-
-            };
-
-            {#            o.data = treedata;#}
-            o.data = inittree_datatemp("{% url 'init_filetree' %}");
-
-            inittable();
-
-            $("#tree").treeview(o);
-
-            $("#showchecked").click(function (e) {
-
-                clear_table(caseid_list);
-
-                var file_list = $("#tree").getCheckedNodes();
-                if (file_list != null) {
-                    var caselist;
-
-                    $.ajax({
-                        type: "post",
-                        url: "{% url 'init_casetable' %}",
-                        data: {caselist: file_list.join(",")},
-                        async: false,
-                        success: function (data) {
-
-                            totalnum = data.caselength;
-                            caselist = data.caselist;
-
-                            set_table(caselist);
-                            selectAllnum(totalnum);
-                        }
-                    });
-                }
-                else {
-                    alert("NULL");
-                }
-            });
-
-            $("#caserun").click(function (e) {
-
-                var s = $("#tree").getCurrentNode();
-
-                if (s != null)
-                    alert(s.text);
-                else
-                    alert("NULL");
-            });
-        }
-
-        if ($.browser.msie6) {
-            load();
+<script>
+    function gotohref(url) {
+        if (url) {
+            window.location.href = url;
         }
         else {
-            $(document).ready(load);
+            alert('To be continue!!');
         }
+    }
+</script>
 
-        //点击页码触发的动作
-        function servlet(item) {
-
-            indexPage = parseInt($(item).attr("mark"));
-            setInput();
-
-            clear_table(caseid_list);
-            console.log(indexPage);
-
-            $.get("{% url 'page_func' %}", {pagenum: +indexPage}, function (data, status) {
-                caselist = data.caselist;
-                set_table(caselist);
-            });
-        }
-
-    </script>
-
-{% endblock %}
+</body>
+</html>
