@@ -1,6 +1,10 @@
-function infoloop(url) {
+var sign = 0;
 
-    $.get(url, {sign: true}, function (data, status) {
+function infoloop(url, flag) {
+
+    console.log(flag);
+
+    $.get(url, {flag: flag}, function (data, status) {
 
         caseinfo_list = data.caseinfo_list;
 
@@ -8,7 +12,6 @@ function infoloop(url) {
         //     var hwnd_bgi = document.getElementById('bgi');
         //     hwnd_bgi.style.display = 'None';
         // }
-
 
         for (var i = 1; i < caseinfo_list.length + 1; i++) {
 
@@ -47,7 +50,7 @@ function infoloop(url) {
 
 
             if (caseinfo_list[i - 1].TEST_RESULT != 'FAILE') {
-                var td_hover = "<td class='td_hover_pass' id=td_hover" + sign + "></td>";
+                var td_hover = "<td class='td_hover_pass' ></td>";
                 $(".case_result .tr" + index + ':last-child').append(td_hover);
                 hwnd_result[0].style.color = "#eb4b8a";
                 var img_pass = "<img src ='/static/img/source/pass.png'>";

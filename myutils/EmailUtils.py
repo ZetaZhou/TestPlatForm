@@ -14,8 +14,8 @@ conf = CommonConfig()
 def send_email(send_from, send_to, subject, text, files=None, server="smtp.exmail.qq.com"):
     # assert(isinstance(send_to,list),"Send To email should be a list")
 
-    mail_user = conf.config['mail_user']
-    mail_pass = conf.config['mail_pass']
+    mail_user = conf.mail_cfg['mail_user']
+    mail_pass = conf.mail_cfg['mail_pass']
 
     msg = MIMEMultipart()
     msg['From'] = send_from
@@ -36,8 +36,8 @@ def send_email(send_from, send_to, subject, text, files=None, server="smtp.exmai
 
 
 def send_report(files):
-    send_f = conf.config['mail_user']
-    send_t = conf.config['send_to']
+    send_f = conf.mail_cfg['mail_user']
+    send_t = conf.mail_cfg['send_to']
 
     subject = "[Automaiton]TestReport_" + str(datetime.today())
 

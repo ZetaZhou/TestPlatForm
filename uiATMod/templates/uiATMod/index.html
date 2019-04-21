@@ -165,7 +165,7 @@
 
             $("#caserun").click(function (e) {
 
-                {# var s = $("#tree").getCurrentNode();    原生方法, 获取当前节点 #}
+                {# var s = $("#tree").getCurrentNode();    插件方法, 获取当前节点 #}
 
                 $.get("{% url 'bkp_teststatus' %}", {sign: true}, function (data, status) {
                     result = data.result;

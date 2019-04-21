@@ -7,6 +7,7 @@ from selenium import webdriver
 
 from myutils.CommonConfig import CommonConfig
 from myutils.TestCaseInfo import TestCaseInfo
+from myutils.logmtd import setup_logging
 
 from uiATMod.uiAT_Page.LoginPage import LoginPage
 from uiATMod.uiAT_Page.MainPage import MainPage
@@ -24,7 +25,6 @@ class Test_TC_Cbmd(unittest.TestCase):
     # self.driver.maximize_window()
 
     def setUp(self):
-
         ''' 初始化testcase 信息'''
 
         self.testCaseInfo = TestCaseInfo(CASE_OWNER='ZetaZhou')
@@ -116,7 +116,8 @@ class Test_TC_Cbmd(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    logging.config.fileConfig(CommonConfig().config_dir + "logger.config")
+    ''' 初始化日志 '''
+    setup_logging()
     loggerdetail = logging.getLogger("detail")
 
     run = Test_TC_Cbmd()

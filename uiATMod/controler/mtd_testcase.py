@@ -16,7 +16,7 @@ class TestcaseMethod(CommonConfig):
 
     def __init__(self, index):
         super().__init__()
-        self.initconfig()
+        # self.initconfig('conf')
         self.testcase_dir = self.testcase_dirlist[index]
 
     def create_testcaselist(self):

@@ -23,7 +23,9 @@
             <div style="float: right; text-align: right; padding-right: 40px; vertical-align: middle">
                 <img src="/static/img/source/start_false.png" id="start" onclick="run_ctrl('3')">
                 <img src="/static/img/source/pause_true.png" id="pause" onclick="run_ctrl('2')">
-                <img src="/static/img/source/download_nor.png" id="download">
+                <a href="{% url 'result_download' %}" style="margin-left: 12px; float: right">
+                    <img src="/static/img/source/download_nor.png" id="download">
+                </a>
                 <img src="/static/img/source/send_nor.png" id="sendmail">
             </div>
         </div>
@@ -40,7 +42,7 @@
                     <th style="width: 6%;">Owner</th>
                     <th style="width: 6%;">Result</th>
                     <th>ErrMsg</th>
-                    <th style="width: 4%;"></th>
+                    <th style="width: 4%; cursor: pointer;" id="state-ctrl">State</th>
                 </tr>
             </table>
         </div>
@@ -49,15 +51,24 @@
 
     <script type="text/javascript">
 
-        var sign = 0;
+        var flag = 0;
 
         function backtoindex() {
             window.location.href = "{% url 'uiAT_index' %}";
         }
 
+        $("#state-ctrl").click(function (e) {
+            if (flag) {
+                flag = 0;
+            }
+            else {
+                flag = 1;
+            }
+        });
+
         // 循环运行
         setInterval(function () {
-            infoloop("{% url 'info_loop' %}");
+            infoloop("{% url 'info_loop' %}", flag);
         }, 5000);
 
         function run_ctrl(method) {
@@ -73,6 +84,20 @@
 
             $.get("{% url 'runloop_ctrl' %}", {method: method});
         }
+
+        $("#sendmail").click(function (e) {
+            $.get("{% url 'send_resultmail' %}", function (data, status) {
+                result = data.result;
+                if (result == 1) {
+                    alert("Mail Send Success!");
+                }
+                else {
+                    alert(data.errmsg);
+                }
+            });
+
+        });
+
     </script>
 
 {% endblock %}

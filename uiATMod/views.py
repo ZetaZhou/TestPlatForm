@@ -68,7 +68,6 @@ def init_casetable(request):
     data = dict()
 
     if request.method == 'POST':
-
         caselist = request.POST['caselist']
         if caselist:
             caselist = caselist.split(',')
@@ -118,7 +117,6 @@ def bkp_teststatus(request):
     sign = request.GET['sign']
 
     if sign == 'true':
-
         sql_bkp_Test_status()  # 将status 未执行 0的用例改为废弃状态 2
 
         caseinfo_list = list()
@@ -139,7 +137,6 @@ def bkp_teststatus(request):
         data['result'] = True
         return JsonResponse(data)
     else:
-
         data['result'] = False
         return JsonResponse(data)
 
@@ -154,7 +151,7 @@ def runloop_ctrl(request):
     data = dict()
 
     method = request.GET['method']
-    print('debug info :', method, run_hwnd)
+    # print('debug info :', method, run_hwnd)
     runloop_ctrl_mtd(method, run_hwnd)
 
     return JsonResponse(data)
@@ -170,7 +167,7 @@ def run_case(request):
     data = dict()
 
     caselist = sql_selectTestcase()  # 查询本次待执行用例
-    CommonConfig().initLog()  # 初始化日志
+    # CommonConfig().initLog()  # 初始化日志
 
     # def runloop():
     #
@@ -204,7 +201,7 @@ def run_case(request):
     global run_hwnd
 
     run_hwnd = runloop_ctrl_mtd(method, caselist, Que, TestResult)
-    print('debug info :', run_hwnd)
+    # print('debug info :', run_hwnd)
 
     Que.queue.clear()
 
@@ -218,16 +215,25 @@ def info_loop(request):
     :return:
     '''
 
-    sign = request.GET['sign']
+    flag = request.GET['flag']
     data = dict()
     caseinfo_list = list()
 
-    while sign:
+    sql_selectCaseDetail(flag)
 
+    # while sign:
+    #
+    #     if not Que.empty():
+    #         caseinfo_list.append(Que.get())
+    #     else:
+    #         sign = False
+
+    while True:
         if not Que.empty():
             caseinfo_list.append(Que.get())
+
         else:
-            sign = False
+            break
 
     # print(caseinfo_list)
     data['caseinfo_list'] = caseinfo_list
@@ -235,10 +241,16 @@ def info_loop(request):
 
 
 def result_download(request):
+    '''
+    下载测试报告
+    :param request:
+    :return:
+    '''
     file_name = TestResult.reportfile
 
-    def file_iterator(file_name, chunk_size=512):
+    # print(file_name)
 
+    def file_iterator(file_name, chunk_size=512):
         with open(file_name) as f:
             while True:
                 c = f.read(chunk_size)
@@ -255,6 +267,11 @@ def result_download(request):
 
 
 def send_resultmail(request):
+    '''
+    发送测试报告邮件
+    :param request:
+    :return:
+    '''
     data = dict()
     try:
         send_report(TestResult.reportfile)

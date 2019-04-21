@@ -65,8 +65,24 @@ def sql_selectTestcase():
 def sql_creatTestcCaseDetail(caseinfo):
     caseid = caseinfo['CASE_ID']
     hwnd_case = TestCase.objects.get(CASE_ID=caseid, STATUS='0')
-    hwnd_case.save()
+    # hwnd_case.STATUS = '1'
+    # hwnd_case.save()
 
     caseinfo['ID'] = hwnd_case
     hwnd_TD = TestCaseDetail(**caseinfo)
     hwnd_TD.save()
+
+def sql_selectCaseDetail(flag):
+
+    hwnd_caselist = TestCase.objects.filter(STATUS='2')
+    # print(hwnd_caselist[0].STATUS)
+    if flag == '1':
+        hwnd_caseidlist = [hwnd.id for hwnd in hwnd_caselist]
+        print(hwnd_caseidlist)
+        for caseid in hwnd_caseidlist:
+            return TestCaseDetail.objects.filter(ID_id=caseid)
+            # casedetaillist = TestCaseDetail.objects.filter(ID_id=caseid)
+            # for casedetail in casedetaillist:
+            #     print(casedetail.__dict__)
+
+

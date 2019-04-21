@@ -52,12 +52,10 @@ body{
 
 .entrance .logo-more {
     width: 80%;
-    /*padding-left: 10px;*/
     line-height: 780px;
     float: right;
     text-align: center;
     vertical-align: middle;
-    /*margin-top: 100%;*/
 }
 
 .entrance .logo-cross {

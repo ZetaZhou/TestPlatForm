@@ -21,7 +21,7 @@ from uiATMod import views
 
 urlpatterns = [
     path('', views.uiAT_index, name='uiAT_index'),
-    path('uiAT_result/', views.uiAT_result, name='uiAT_result'),
+    path('uiAT-result/', views.uiAT_result, name='uiAT_result'),
     path('init-filetree/', views.init_filetree, name='init_filetree'),
     path('init_casetable/', views.init_casetable, name='init_casetable'),
     path('page_func/', views.page_func, name='page_func'),

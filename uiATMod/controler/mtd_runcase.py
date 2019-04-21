@@ -66,8 +66,7 @@ class Runloop(threading.Thread):
 
 
 def runloop_ctrl_mtd(*para):
-
-    print('debug info : method = ', para[0])
+    # print('debug info : method = ', para[0])
 
     def run_start(caselist, Que, TestResult):
         runloop = Runloop(caselist, Que, TestResult)

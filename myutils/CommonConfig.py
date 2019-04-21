@@ -2,14 +2,19 @@
 import logging
 import sys
 import queue
+import time
 import traceback
 import threading
 import subprocess
+import configparser
 
 from datetime import datetime
 from collections import defaultdict
 
-class CommonConfig():
+from myutils.logmtd import setup_logging
+
+
+class CommonConfig(object):
     # def __new__(cls, *args, **kwargs):
     #     if not hasattr(CommonConfig, "_instance"):
     #         CommonConfig._instance = object.__new__(cls)
@@ -20,39 +25,34 @@ class CommonConfig():
         self.testcase_dirlist = ['.\\uiATMod\\uiAT_testcase\\', '.\\apiATMod\\apiAT_testcase\\']
         self.config_dir = '.\\config\\'
         self.result_dir = '.\\result\\'
-        self.config = self.initconfig()
+        self.config = self.initconfig('conf')
+        self.mail_cfg = self.initconfig('mail')
 
-    def initconfig(self):
-        '''
-        初始化config文件, 把配置写入self.config字典中
-        :return:
-        '''
-        config_dict = dict()
-        with open(self.config_dir + 'config.txt', 'r') as file:
-            configdatalist = file.readlines()
-        if '[config]' in configdatalist[0]:
-            for configdata in configdatalist:
-                try:
-                    config = configdata.split('=')
-                    config_dict[config[0]] = config[1].strip('\n ')
-                except:
-                    pass
+        ''' 初始化日志 '''
+        setup_logging()
+        self.main_log = logging.getLogger('main')
+        self.detail_log = logging.getLogger('detail')
 
-        return config_dict
-
-    def initLog(self):
+    def initconfig(self, content):
         '''
-        初始化log文件
+        初始化config文件
         :return:
         '''
 
-        from myutils.LogMethod import initlogfile
+        confdict = dict()
+        inifile = os.path.join(self.config_dir + 'config.ini')
+        conf = configparser.ConfigParser()  # 生成conf对象
+        conf.read(inifile, encoding='utf-8')
 
-        initlogfile(self.config_dir, self.config['main_log'], 'main')
-        initlogfile(self.config_dir, self.config['detail_log'], 'detail')
+        # print(conf.sections())  # 显示所有节名称
+        # print(conf.options('conf'))  # 显示节下面的option名称
 
-        # self.loggermain = logging.getLogger("main")
-        # self.loggerdetail = logging.getLogger("detail")
+        for sect in conf.sections():
+            if sect == content:
+                for opt in conf.options(sect):
+                    confdict[opt] = conf.get(sect, opt)
+
+        return confdict
 
     @staticmethod
     def getCurrentTime():
