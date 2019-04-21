@@ -3,16 +3,18 @@ from lxml import etree
 
 from .CommonConfig import *
 
+
 class TestReport(CommonConfig):
     """description of class"""
+
     def __init__(self):
         super().__init__()
         self.reportfile = self.result_dir + "\TestResult_" + self.today + ".html"
 
-    #Create init test report file
+    # Create init test report file
     def CreateHtmlFile(self):
         if os.path.exists(self.reportfile) == False:
-            f = open(self.reportfile,'w')
+            f = open(self.reportfile, 'w')
             message = """<html>
             <head>    
                 <title>Automation Test Result</title>
@@ -67,14 +69,12 @@ class TestReport(CommonConfig):
             f.write(message)
             f.close()
 
-
-    def WriteHTML(self,testcaseinfodict):
-
+    def WriteHTML(self, testcaseinfodict):
         self.CreateHtmlFile()
 
         testcaseinfo_dict = testcaseinfodict
 
-        f = open(self.reportfile,"r")
+        f = open(self.reportfile, "r")
         htmlcontent = f.read()
         f.close()
 
@@ -92,11 +92,11 @@ class TestReport(CommonConfig):
                 td.set('color', 'white')
 
             try:
-                td.text = str(value).encode('utf-8')
-            except Exception as e:
-                print(e)
+                # td.text = str(value).encode('utf-8')
+                td.text = str(value)
+            except Exception:
+                print(traceback.format_exc())
 
         f = open(self.reportfile, 'w+')
         f.write(etree.tostring(body).decode('utf-8'))
         f.close()
-        

@@ -21,9 +21,7 @@ class Runloop(threading.Thread):
         self.__running.set()  # 将running设置为True
 
     def run(self):
-
         for caseinfo in self.caselist:
-
             if not self.__running.isSet():
                 break
 
@@ -52,7 +50,8 @@ class Runloop(threading.Thread):
                 except Exception as e:
                     # print('发生错误的文件：', e.__traceback__.tb_frame.f_globals['__file__'])
                     # print('错误所在的行号：', e.__traceback__.tb_lineno)
-                    print(traceback.format_exc())
+                    # print(traceback.format_exc())
+                    print(e)
 
     def pause(self):
         self.__flag.clear()  # 设置为False, 让线程阻塞
